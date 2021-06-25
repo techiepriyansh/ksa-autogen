@@ -3,11 +3,13 @@ from io import StringIO
 
 import re
 
-class KSAAutoGen:
+class TreeAdderAutoGen:
 
-  def __init__(self, k, moduleName):
+  def __init__(self, k, moduleName, algo):
     self.moduleName = moduleName
     self.k = k
+    self.algo = algo
+
     self.cnt = 0
     self.buffer = StringIO()
 
@@ -18,6 +20,7 @@ class KSAAutoGen:
 
   def concatBuffer(self):
     print(self.buffer.getvalue(), end='')
+
 
   def restoreStdout(self):
     sys.stdout = sys.__stdout__
@@ -109,19 +112,15 @@ class KSAAutoGen:
     self.cnt += 1
 
 
+  def merge(self, i, k, j):
+    if j == 0: self.writeGreyCell(i, k, j)
+    else: self.writeBlackCell(i, k, j)
+
+
   def writePGCombineLogic(self):
     self.writeHeadingComment("PG Combination Logic")
-
-    for j in range(1,self.k+1):
-      self.writeComment(f"Cells for level {j}")
-
-      for i in range(2**(j-1), 2**j):
-        self.writeGreyCell(i, i+1-2**(j-1), 0)
-
-      for i in range(2**j, 2**self.k):
-        self.writeBlackCell(i, i+1-2**(j-1), i+1-2**j)
-
-      print("")
+    self.algo(self.k, self.merge)
+    print("")
 
 
   def writeSumAndCarryOut(self):
@@ -159,5 +158,10 @@ class KSAAutoGen:
 
 
 
-ksa = KSAAutoGen(4, 'ksa_16b')
+def ksa_algo(k, merge):
+  for j in range(1, k+1):
+    for i in range(2**(j-1), 2**k):
+      merge(i, i+1-2**(j-1), max(i+1-2**j, 0))
+
+ksa = TreeAdderAutoGen(2, 'ksa_4b', ksa_algo)
 ksa.generate()
