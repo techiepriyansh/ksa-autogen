@@ -1,15 +1,23 @@
 import sys
-from io import StringIO
-
 import re
 
-class KSAAutoGen:
+from io import StringIO
+from modulegen import ModuleGen
 
-  def __init__(self, k, moduleName):
-    self.moduleName = moduleName
+class TreeAdderGen(ModuleGen):
+
+  def __init__(self, k, moduleName, algo, outStream=sys.__stdout__):
+    super().__init__(moduleName, outStream)
+
     self.k = k
+    self.algo = algo
+
     self.cnt = 0
     self.buffer = StringIO()
+
+
+  def writeModule(self):
+    super().writeModule("a, b, c_in, sum, c_out")
 
 
   def redirectToBuffer(self):
@@ -19,16 +27,9 @@ class KSAAutoGen:
   def concatBuffer(self):
     print(self.buffer.getvalue(), end='')
 
-  def restoreStdout(self):
-    sys.stdout = sys.__stdout__
 
-
-  def writeModule(self):
-    print(f"module {self.moduleName}(a, b, c_in, sum, c_out);\n")
-
-
-  def writeEndmodule(self):
-    print(f"endmodule")
+  def restoreOutStream(self):
+    sys.stdout = self.outStream
 
 
   def writeInput(self):
@@ -71,18 +72,6 @@ class KSAAutoGen:
     print("")
 
 
-  def writeHeadingComment(self, comment):
-    print(f"/*-----{len(comment) * '-'}-----")
-    print(f"  |    {comment}    |")
-    print(f"  -----{len(comment) * '-'}-----*/")
-    print("")
-    pass
-
-
-  def writeComment(self, comment):
-    print(f"// {comment}")
-
-
   def writeSingleBitPG(self):
     self.writeHeadingComment("Single Bit Propagates and Generates")
 
@@ -109,19 +98,15 @@ class KSAAutoGen:
     self.cnt += 1
 
 
+  def merge(self, i, k, j):
+    if j == 0: self.writeGreyCell(i, k, j)
+    else: self.writeBlackCell(i, k, j)
+
+
   def writePGCombineLogic(self):
     self.writeHeadingComment("PG Combination Logic")
-
-    for j in range(1,self.k+1):
-      self.writeComment(f"Cells for level {j}")
-
-      for i in range(2**(j-1), 2**j):
-        self.writeGreyCell(i, i+1-2**(j-1), 0)
-
-      for i in range(2**j, 2**self.k):
-        self.writeBlackCell(i, i+1-2**(j-1), i+1-2**j)
-
-      print("")
+    self.algo(self.k, self.merge)
+    print("")
 
 
   def writeSumAndCarryOut(self):
@@ -148,7 +133,7 @@ class KSAAutoGen:
     self.redirectToBuffer()
     self.writeSingleBitPG()
     self.writePGCombineLogic()
-    self.restoreStdout()
+    self.restoreOutStream()
 
     self.writeWires()
     self.writeBaseCasePG()
@@ -156,8 +141,3 @@ class KSAAutoGen:
 
     self.writeSumAndCarryOut()
     self.writeEndmodule()
-
-
-
-ksa = KSAAutoGen(4, 'ksa_16b')
-ksa.generate()
