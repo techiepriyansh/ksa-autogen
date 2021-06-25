@@ -5,8 +5,9 @@ from modulegen import ModuleGen
 
 class TestBenchGen(ModuleGen):
 
-  def __init__(self, k, designModuleName):
-    super().__init__(f"{designModuleName}_tb")
+  def __init__(self, k, designModuleName, outStream=sys.__stdout__):
+    super().__init__(f"{designModuleName}_tb", outStream)
+
     self.designModuleName = designModuleName
     self.k = k
 
@@ -59,11 +60,13 @@ class TestBenchGen(ModuleGen):
 
 
   def writeMain(self):
-    n = 2 ** self.k
     self.writeComment("Assigning random values to a and b")
+    
+    decrement = bin(random.randint(2**(2**(self.k-1)), 2**(2**self.k)))[2:]
+
     print(f"always @(a or b or c_in)")
     print(f"begin")
-    print(f"  for (i={2**(self.k+1)}'b{'1'*(2**(self.k+1))}; i > 0; i = i - {random.randint(2**(2**self.k), 2**(2**(self.k+1)))})")
+    print(f"  for (i={2**(self.k+1)}'b{'1'*(2**(self.k+1))}; i > 0; i = i - {len(decrement)}'b{decrement})")
     print(r"    #1 {a, b} = i;")
     print(f"    #10 $stop;")
     print(f"end \n")

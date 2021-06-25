@@ -1,7 +1,12 @@
+import sys
+
 class ModuleGen:
 
-  def __init__(self, moduleName):
+  def __init__(self, moduleName, outStream=sys.__stdout__):
     self.moduleName = moduleName
+
+    sys.stdout = outStream
+    self.outStream = outStream
 
 
   def writeModule(self, ports=""):

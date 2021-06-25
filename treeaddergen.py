@@ -6,8 +6,9 @@ from modulegen import ModuleGen
 
 class TreeAdderGen(ModuleGen):
 
-  def __init__(self, k, moduleName, algo):
-    super().__init__(moduleName)
+  def __init__(self, k, moduleName, algo, outStream=sys.__stdout__):
+    super().__init__(moduleName, outStream)
+
     self.k = k
     self.algo = algo
 
@@ -27,8 +28,8 @@ class TreeAdderGen(ModuleGen):
     print(self.buffer.getvalue(), end='')
 
 
-  def restoreStdout(self):
-    sys.stdout = sys.__stdout__
+  def restoreOutStream(self):
+    sys.stdout = self.outStream
 
 
   def writeInput(self):
@@ -132,7 +133,7 @@ class TreeAdderGen(ModuleGen):
     self.redirectToBuffer()
     self.writeSingleBitPG()
     self.writePGCombineLogic()
-    self.restoreStdout()
+    self.restoreOutStream()
 
     self.writeWires()
     self.writeBaseCasePG()
