@@ -1,16 +1,14 @@
 import sys
 import random
 
-class TestBenchAutoGen:
+from modulegen import ModuleGen
+
+class TestBenchGen(ModuleGen):
 
   def __init__(self, k, designModuleName):
+    super().__init__(f"{designModuleName}_tb")
     self.designModuleName = designModuleName
     self.k = k
-
-
-  def writeModule(self):
-    self.writeHeadingComment("TestBench for KSA") 
-    print(f"module {self.designModuleName}_tb;\n")
 
 
   def writeEndmodule(self):
@@ -28,7 +26,7 @@ class TestBenchAutoGen:
 
 
   def writeVariables(self):
-    print(f"integer i;\n")
+    print(f"real i;\n")
 
 
   def writeHeadingComment(self, comment):
@@ -65,7 +63,7 @@ class TestBenchAutoGen:
     self.writeComment("Assigning random values to a and b")
     print(f"always @(a or b or c_in)")
     print(f"begin")
-    print(f"  for (i={2**(self.k+1)}'b{'1'*(2**(self.k+1))} ; i > 0; i = i - {random.randint(2**(2**self.k), 2**(2**(self.k+1)))})")
+    print(f"  for (i={2**(self.k+1)}'b{'1'*(2**(self.k+1))}; i > 0; i = i - {random.randint(2**(2**self.k), 2**(2**(self.k+1)))})")
     print(r"    #1 {a, b} = i;")
     print(f"    #10 $stop;")
     print(f"end \n")
@@ -75,13 +73,12 @@ class TestBenchAutoGen:
     self.writeModule()
     self.writeInput()
     self.writeOutput()
+
     self.writeVariables()
     self.writeInstance()
+
     self.writeInitialize()
     self.writeDisplay()
     self.writeMain()
+
     self.writeEndmodule()
-
-
-tb = TestBenchAutoGen(2, 'ksa_4b')
-tb.generate()

@@ -1,17 +1,22 @@
 import sys
-from io import StringIO
-
 import re
 
-class TreeAdderAutoGen:
+from io import StringIO
+from modulegen import ModuleGen
+
+class TreeAdderGen(ModuleGen):
 
   def __init__(self, k, moduleName, algo):
-    self.moduleName = moduleName
+    super().__init__(moduleName)
     self.k = k
     self.algo = algo
 
     self.cnt = 0
     self.buffer = StringIO()
+
+
+  def writeModule(self):
+    super().writeModule("a, b, c_in, sum, c_out")
 
 
   def redirectToBuffer(self):
@@ -24,14 +29,6 @@ class TreeAdderAutoGen:
 
   def restoreStdout(self):
     sys.stdout = sys.__stdout__
-
-
-  def writeModule(self):
-    print(f"module {self.moduleName}(a, b, c_in, sum, c_out);\n")
-
-
-  def writeEndmodule(self):
-    print(f"endmodule")
 
 
   def writeInput(self):
@@ -72,18 +69,6 @@ class TreeAdderAutoGen:
     self.writeWiresWithPattern(gWirePattern)
     print("wire c_out_tmp;")
     print("")
-
-
-  def writeHeadingComment(self, comment):
-    print(f"/*-----{len(comment) * '-'}-----")
-    print(f"  |    {comment}    |")
-    print(f"  -----{len(comment) * '-'}-----*/")
-    print("")
-    pass
-
-
-  def writeComment(self, comment):
-    print(f"// {comment}")
 
 
   def writeSingleBitPG(self):
@@ -155,13 +140,3 @@ class TreeAdderAutoGen:
 
     self.writeSumAndCarryOut()
     self.writeEndmodule()
-
-
-
-def ksa_algo(k, merge):
-  for j in range(1, k+1):
-    for i in range(2**(j-1), 2**k):
-      merge(i, i+1-2**(j-1), max(i+1-2**j, 0))
-
-ksa = TreeAdderAutoGen(2, 'ksa_4b', ksa_algo)
-ksa.generate()
