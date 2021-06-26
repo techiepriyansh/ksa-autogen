@@ -4,7 +4,12 @@
 !grey_cell.v
 
 !*.py
+
 !config/
+!config/*
+
+!static/
+!static/*
 
 !build/
 !build/*
