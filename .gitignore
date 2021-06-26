@@ -6,4 +6,7 @@
 !*.py
 !config/
 
+!build/
+!build/*
+
 !.gitignore

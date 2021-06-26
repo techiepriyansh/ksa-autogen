@@ -1,14 +1,12 @@
-import os
-import sys
-import pathlib
+import os, sys, shutil
+from distutils.dir_util import copy_tree
 
 from treeaddergen import TreeAdderGen
 from testbenchgen import TestBenchGen
 
 algoFuncs = {}
 
-def readConfig():
-  pathToBinary = pathlib.Path(__file__).parent.resolve()
+def readConfig(pathToBinary):
   configPath = os.path.join(pathToBinary, "config")
 
   configFiles = []
@@ -24,8 +22,15 @@ def readConfig():
     if 'algo' in k: algoFuncs[k] = v
 
 
+def copyStaticFiles(pathToBinary):
+  staticPath = os.path.join(pathToBinary, "static")
+  copy_tree(staticPath, os.getcwd())
+
+
 def main():
-  readConfig()
+  pathToBinary = os.path.dirname(sys.executable) # when running as an executable
+  # pathToBinary = os.getcwd() # when running as a python script
+  readConfig(pathToBinary)
 
   adderName = sys.argv[1]
   adderAlgoFuncName = f"{adderName}_algo"
@@ -38,6 +43,8 @@ def main():
   k = len(bin(N-1)[2:])
 
   moduleName = f"{adderName}_{2**k}b"
+
+  copyStaticFiles(pathToBinary)
 
   with open(f"{moduleName}.v", "w+") as designModuleFile:
     adder = TreeAdderGen(k, moduleName, algoFuncs[adderAlgoFuncName], designModuleFile)
