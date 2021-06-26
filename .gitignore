@@ -1,5 +1,9 @@
 *
+
 !black_cell.v
 !grey_cell.v
+
 !*.py
+!config/
+
 !.gitignore
