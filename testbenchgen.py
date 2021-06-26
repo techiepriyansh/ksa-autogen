@@ -5,6 +5,8 @@ from modulegen import ModuleGen
 
 class TestBenchGen(ModuleGen):
 
+  numTests = 100
+
   def __init__(self, k, designModuleName, outStream=sys.__stdout__):
     super().__init__(f"{designModuleName}_tb", outStream)
 
@@ -27,7 +29,7 @@ class TestBenchGen(ModuleGen):
 
 
   def writeVariables(self):
-    print(f"real i;\n")
+    print(f"integer i;\n")
 
 
   def writeHeadingComment(self, comment):
@@ -56,19 +58,22 @@ class TestBenchGen(ModuleGen):
 
   def writeDisplay(self):
     print(f"initial")
-    print(f"  $monitor( \"a(%d) + b(%d) + c_in(%d) = c_out sum(%d %d)\", a, b, c_in, c_out, sum); \n")
+    print(f"  $monitor( \"a(%d) + b(%d) + c_in(%b) = c_out sum(%b %d)\", a, b, c_in, c_out, sum); \n")
 
 
   def writeMain(self):
     self.writeComment("Assigning random values to a and b")
     
-    decrement = bin(random.randint(2**(2**(self.k-1)), 2**(2**self.k)))[2:]
+    randBlocks32b = []
+    for i in range(2**max(0, self.k - 4)):
+      randBlocks32b.append("$random")
+    randBlocks32bString = "{" + ", ".join(randBlocks32b) + "}"
 
-    print(f"always @(a or b or c_in)")
+    print(f"initial")
     print(f"begin")
-    print(f"  for (i={2**(self.k+1)}'b{'1'*(2**(self.k+1))}; i > 0; i = i - {len(decrement)}'b{decrement})")
-    print(r"    #1 {a, b} = i;")
-    print(f"    #10 $stop;")
+    print(f"  for (i = 0; i < {self.numTests}; i = i + 1)")
+    print(r"    #1 {a, b} = " + randBlocks32bString + ";")
+    print(f"  #10 $stop;")
     print(f"end \n")
 
 
