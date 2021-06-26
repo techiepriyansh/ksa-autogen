@@ -78,6 +78,8 @@ class TestBenchGen(ModuleGen):
 
 
   def generate(self):
+    self.redirectToOutStream()
+
     self.writeModule()
     self.writeInput()
     self.writeOutput()
@@ -90,3 +92,5 @@ class TestBenchGen(ModuleGen):
     self.writeMain()
 
     self.writeEndmodule()
+
+    self.restoreStdout()

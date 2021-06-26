@@ -28,10 +28,6 @@ class TreeAdderGen(ModuleGen):
     print(self.buffer.getvalue(), end='')
 
 
-  def restoreOutStream(self):
-    sys.stdout = self.outStream
-
-
   def writeInput(self):
     print(f"input [{2**self.k}:1] a, b;")
     print(f"input c_in;\n")
@@ -126,6 +122,8 @@ class TreeAdderGen(ModuleGen):
 
 
   def generate(self):
+    self.redirectToOutStream()
+
     self.writeModule()
     self.writeInput()
     self.writeOutput()
@@ -133,11 +131,13 @@ class TreeAdderGen(ModuleGen):
     self.redirectToBuffer()
     self.writeSingleBitPG()
     self.writePGCombineLogic()
-    self.restoreOutStream()
 
+    self.redirectToOutStream()
     self.writeWires()
     self.writeBaseCasePG()
     self.concatBuffer()
 
     self.writeSumAndCarryOut()
     self.writeEndmodule()
+
+    self.restoreStdout()

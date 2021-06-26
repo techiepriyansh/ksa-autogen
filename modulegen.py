@@ -4,9 +4,15 @@ class ModuleGen:
 
   def __init__(self, moduleName, outStream=sys.__stdout__):
     self.moduleName = moduleName
-
-    sys.stdout = outStream
     self.outStream = outStream
+
+
+  def redirectToOutStream(self):
+    sys.stdout = self.outStream
+
+
+  def restoreStdout(self):
+    sys.stdout = sys.__stdout__
 
 
   def writeModule(self, ports=""):
