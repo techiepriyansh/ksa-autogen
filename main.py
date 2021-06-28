@@ -28,8 +28,8 @@ def copyStaticFiles(pathToBinary):
 
 
 def main():
-  pathToBinary = os.path.dirname(sys.executable) # when running as an executable
-  # pathToBinary = os.getcwd() # when running as a python script
+  # pathToBinary = os.path.dirname(sys.executable) # when building the executable
+  pathToBinary = os.path.dirname(__file__) # when running as a python script
   readConfig(pathToBinary)
 
   adderName = sys.argv[1]
