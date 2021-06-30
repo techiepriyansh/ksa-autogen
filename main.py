@@ -1,4 +1,4 @@
-import os, sys, shutil
+import os, sys
 from distutils.dir_util import copy_tree
 
 from treeaddergen import TreeAdderGen
@@ -28,8 +28,8 @@ def copyStaticFiles(pathToBinary):
 
 
 def main():
-  # pathToBinary = os.path.dirname(sys.executable) # when building the executable
-  pathToBinary = os.path.dirname(__file__) # when running as a python script
+  pathToBinary = os.path.dirname(sys.executable) # when building the executable
+  # pathToBinary = os.path.dirname(__file__) # when running as a python script
   readConfig(pathToBinary)
 
   adderName = sys.argv[1]
@@ -44,15 +44,20 @@ def main():
 
   moduleName = f"{adderName}_{2**k}b"
 
+  print("Writing static files black_cell.v and grey_cell.v")
   copyStaticFiles(pathToBinary)
 
+  print(f"Writing adder design module {moduleName}.v")
   with open(f"{moduleName}.v", "w+") as designModuleFile:
     adder = TreeAdderGen(k, moduleName, algoFuncs[adderAlgoFuncName], designModuleFile)
     adder.generate()
 
+  print(f"Writing test bench for the adder {moduleName}_tb.v")
   with open(f"{moduleName}_tb.v", "w+") as testBenchFile:
     testBench = TestBenchGen(k, moduleName, testBenchFile)
     testBench.generate()
+
+  print("Done!")
 
 
 if __name__ == "__main__":

@@ -1,14 +1,11 @@
-*
+/*
 
 !*.py
+!make.bat
 
-!config/
-!config/*
-
-!static/
-!static/*
-
-!build/
-!build/*
+!/config/
+!/static/
+!/dist/
+!/docs/
 
 !.gitignore

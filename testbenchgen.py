@@ -14,10 +14,6 @@ class TestBenchGen(ModuleGen):
     self.k = k
 
 
-  def writeEndmodule(self):
-    print(f"endmodule")
-
-
   def writeInput(self):
     print(f"reg [{2 ** self.k}:1] a, b;")
     print(f"reg c_in;\n")
@@ -30,18 +26,6 @@ class TestBenchGen(ModuleGen):
 
   def writeVariables(self):
     print(f"integer i;\n")
-
-
-  def writeHeadingComment(self, comment):
-    print(f"/*-----{len(comment) * '-'}-----")
-    print(f"  |    {comment}    |")
-    print(f"  -----{len(comment) * '-'}-----*/")
-    print("")
-    pass
-
-
-  def writeComment(self, comment):
-    print(f"// {comment}")
 
 
   def writeInstance(self):
