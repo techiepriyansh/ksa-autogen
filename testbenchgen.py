@@ -42,7 +42,7 @@ class TestBenchGen(ModuleGen):
 
   def writeDisplay(self):
     print(f"initial")
-    print(f"  $monitor( \"a(%d) + b(%d) + c_in(%b) = c_out sum(%b %d)\", a, b, c_in, c_out, sum); \n")
+    print(f"  $monitor( \"a(%d) + b(%d) + c_in(%b) = sum(%d) c_out(%b)\", a, b, c_in, sum, c_out); \n")
 
 
   def writeMain(self):
