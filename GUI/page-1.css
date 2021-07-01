@@ -1,0 +1,140 @@
+@import url("https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@600&display=swap");
+.body{
+    
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ height:100vh;
+  background: linear-gradient(45deg, greenyellow, dodgerblue);
+  font-family: "Sansita Swashed", cursive;
+}
+
+.navbar-full{
+    display: flex;
+    justify-content:flex-start;
+}
+.home{
+    padding: 4px;
+    margin-left: 134px;
+    font-size: 18px;
+}
+.costumize{
+    padding:4px;
+    margin-left: 32px;
+    font-size: 18px;
+}
+.heading{
+   text-align: center;
+   font-size: 51px;
+}
+
+.center {
+  position: relative;
+  padding: 50px 50px;
+  background: #fff;
+  border-radius: 10px;
+}
+.center h1 {
+  font-size: 2em;
+  border-left: 5px solid dodgerblue;
+  padding: 10px;
+  color: #000;
+  letter-spacing: 5px;
+  margin-bottom: 60px;
+  font-weight: bold;
+  padding-left: 10px;
+}
+.up{
+    display: flex;
+
+}
+.down{
+    display: flex;
+    justify-content:space-between; !important
+}
+.buttons{
+    display: flex;
+}
+.N{
+    margin-left:-20px;
+   height: 50px;
+}
+.N input{
+    width:30px;
+height: 40px;
+border-radius: 10px;
+border: 2px solid black;
+
+}
+
+.browse{
+    margin-left: 80px;
+height: 50px;
+}
+.center .inputbox {
+  position: relative;
+  width: 500px;
+  height: 50px;
+  margin-bottom: 50px;
+}
+.center .inputbox input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border: 2px solid #000;
+  outline: none;
+  background: none;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.2em;
+}
+.center .inputbox:last-child {
+  margin-bottom: 0;
+}
+.center .inputbox span {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  font-size: 1em;
+  transition: 0.6s;
+  font-family: sans-serif;
+}
+.center .inputbox input:focus ~ span,
+.center .inputbox input:valid ~ span {
+  transform: translateX(-13px) translateY(-35px);
+  font-size: 1em;
+}
+.center .inputbox [type="button"] {
+    left:50%;
+  width: 50%;
+  background: dodgerblue;
+  color: #fff;
+  border: #fff;
+}
+.center .inputbox:hover [type="button"] {
+  background: linear-gradient(45deg, greenyellow, dodgerblue);
+}
+.add{
+    position: relative;
+    margin-right: 0px;
+    right: 0px;
+    margin-left: 25%;
+    height: 40px; !important
+}
+
+#cars{
+    width: 95%;
+    height: 48px;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+button{
+    height: 45px;
+    color: #fff;
+    border: 2px solid black;
+    border-radius: 10px;
+}
