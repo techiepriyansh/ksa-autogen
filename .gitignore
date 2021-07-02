@@ -3,6 +3,7 @@
 !*.py
 !make.bat
 
+!/src/
 !/config/
 !/static/
 !/dist/

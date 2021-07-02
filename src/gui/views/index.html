@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tree Adder Generator</title>
+		<script type="text/javascript" src="/eel.js"></script>
+		<script type="text/javascript" src="/js/utils.js"></script>
+		<script type="text/javascript" src="/js/messages.js"></script>
+		<script type="text/javascript" src="/js/interface.js"></script>
+		<script type="text/javascript" src="/js/staticEvents.js"></script>
+		<script type="text/javascript" src="/js/initialize.js"></script>
+		<link rel="stylesheet" href="/css/general.css">
+		<link rel="stylesheet" href="/css/main.css">
+	</head>
+
+	<body>
+		<div class="mid">
+			<div id="header">
+				<div class="title">
+					<a href="https://github.com/techiepriyansh/ksa-autogen" target="_blank"><img src="/favicon.ico" /></a>
+					<a href="https://github.com/techiepriyansh/ksa-autogen" target="_blank"><h1>Tree Adder Generator</h1></a>
+				</div>
+				<div class="extra-links">
+					<a href="https://github.com/techiepriyansh/ksa-autogen" target="_blank">
+						GitHub
+						<img src="https://github.githubassets.com/favicons/favicon.png" alt="GitHub favicon" />
+					</a>
+				</div>
+			</div>
+
+			<div>
+				<h2>Project Location</h2>
+				<div class="filepath-browse-layout">
+					<input id="project-location" placeholder="Where to put the generated files?">
+					<button id="project-location-search">Browse</button>
+				</div>
+			</div>
+
+			<div>
+				<h2>
+					<span>Type</span>
+				</h2>
+				<div>
+	          <label for="adder-selection">Adder type: </label>
+	          <select id="adder-selection"></select>
+				</div>
+			</div>
+
+			<div>
+				<h2>
+					<span>Size <small>(N-bit)</small></span>
+				</h2>
+				<div>
+	          <label for="n-bits">N: </label>
+	          <input id="n-bits" type="number" min="2" placeholder="N">
+				</div>
+			</div>
+
+
+			<div id="output">
+				<h2 >Output</h2>
+				<textarea readonly></textarea>
+			</div>
+
+			<br>
+
+			<div id="generate-button-wrapper">
+				<button id="generate-button" >
+					GENERATE TREE ADDER
+				</button>
+			</div>
+		</div>
+	</body>
+</html>
