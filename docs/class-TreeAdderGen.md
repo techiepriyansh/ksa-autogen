@@ -2,7 +2,7 @@
 
 ### Purpose: 
 To print main verilog code for a given value of `k` and a given function `algo`, where:
-- `k` is the smallest integer such that $2^k$ is greater than or equal to the given input `N`
+- `k` is the smallest integer such that 2<sup>k</sup> is greater than or equal to the given input `N`
 - `algo` is the given function which instructs the combination logic of the adder
 
 ### Constructor:

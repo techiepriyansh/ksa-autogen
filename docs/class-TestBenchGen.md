@@ -2,7 +2,7 @@
 
 ### Purpose: 
 To print test bench code for a given value of `k`, where:
-- `k` is the smallest integer such that $2^k$ is greater than or equal to the given input `N`
+- `k` is the smallest integer such that 2<sup>k</sup> is greater than or equal to the given input `N`
 
 ### Constructor:
 - ##### Syntax: `TestBenchGen(k, designModuleName, outStream)`
