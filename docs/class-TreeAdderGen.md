@@ -2,69 +2,69 @@
 
 ### Purpose: 
 To print main verilog code for a given value of `k` and a given function `algo`, where:
-- `k` is the smallest power of 2 greater than or equal to the given input `N`
-- `algo` is a user defined function which instructs the combination logic of the adder.
+- `k` is the smallest integer such that 2<sup>k</sup> is greater than or equal to the given input `N`
+- `algo` is the given function which instructs the combination logic of the adder
 
 ### Constructor:
-- ##### Syntax: `TreeAdderGen(self, k, moduleName, algo, outStream)`
-- Parent contructor call and initialization of the required variables
+- ##### Syntax: `TreeAdderGen(k, moduleName, algo, outStream)`
+- Makes parent constructor call and initializes the required variables
 
 ### writeModule:
-- ##### Syntax: `writeModule(self)`
+- ##### Syntax: `writeModule()`
 - Prints the module declaration statement
 
 ### redirectToBuffer:
-- ##### Syntax: `redirectToBuffer(self)`
-- Sets `stdout` stream to `self.buffer`
+- ##### Syntax: `redirectToBuffer()`
+- Sets `stdout` stream to `buffer`
 
 ### concatBuffer:
-- ##### Syntax: `concatBuffer(self)`
+- ##### Syntax: `concatBuffer()`
 - [TODO]
 
 ### writeInput:
-- ##### Syntax: `writeInput(self)`
+- ##### Syntax: `writeInput()`
 - Prints declarations for input ports
 
 ### writeOutput:
-- ##### Syntax: `writeOutput(self)`
+- ##### Syntax: `writeOutput()`
 - Prints declarations for output ports
 
 ### writeWiresWithPattern:
-- ##### Syntax: `writeWiresWithPattern(self, pattern, size)`
-- Print declarations for the required wires according to the `pattern` passed as regular expression
+- ##### Syntax: `writeWiresWithPattern(pattern, size)`
+- Prints declarations for the required wires according to the `pattern` passed as regular expression
 
 ### writeBaseCasePG:
-- ##### Syntax: `writeBaseCasePG(self)`
-- Print the base cases of `pg` and `g`
+- ##### Syntax: `writeBaseCasePG()`
+- Prints the base cases of `pg` and `g`
 
 ### writeWires:
-- ##### Syntax: `writeWires(self)`
-- Generates `pattern` for printing wire declarations and invokes `writeWiresWithPattern`
+- ##### Syntax: `writeWires()`
+- Prints declarations for wires
 
 ### writeSingleBitPG:
-- ##### Syntax: `writeSingleBitPG(self)`
-- Print gate-level statements to initialize single bit propagates and generates
+- ##### Syntax: `writeSingleBitPG()`
+- Prints gate-level statements to initialize single bit propagates and generates
 
 ### writeBlackCell:
-- ##### Syntax: `writeBlackCell(self, i, k, j)`
-- Print black cell instantiation statement
+- ##### Syntax: `writeBlackCell(i, k, j)`
+- Prints black cell instantiation statement
 
 ### writeGreyCell:
-- ##### Syntax: `writeGreyCell(self, i, k, j)`
-- Print grey cell instantiation statement
+- ##### Syntax: `writeGreyCell(i, k, j)`
+- Prints grey cell instantiation statement
 
 ### merge:
-- ##### Syntax: merge(self, i, k, j)
+- ##### Syntax: `merge(i, k, j)`
 - [TODO]
 
 ### writePGCombineLogic:
-- ##### Syntax: `writePGCombineLogic(self)`
-- Print statements which construct the PG combination logic using the `algo` function
+- ##### Syntax: `writePGCombineLogic()`
+- Prints statements which construct the PG combination logic using the `algo` function
 
 ### writeSumAndCarryOut:
-- ##### Syntax: `writeSumAndCarryOut(self)`
-- Print final gate-level statements to assign values to the outputs, `sum` and `c_out`
+- ##### Syntax: `writeSumAndCarryOut()`
+- Prints final gate-level statements to assign values to the outputs, `sum` and `c_out`
 
 ### generate:
-- ##### Syntax: `generate(self)`
-- Call functions step by step in order to generate the required verilog file
+- ##### Syntax: `generate()`
+- Invokes functions step by step in order to generate the required verilog file

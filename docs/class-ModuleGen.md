@@ -4,29 +4,29 @@
 To help generating verilog files by providing utility functions
 
 ### Constructor:
-- ##### Syntax: `ModuleGen(self, moduleName, outStream)`
-- Initialization of the required variables
+- ##### Syntax: `ModuleGen(moduleName, outStream)`
+- Initializes the required variables
 
 ### redirectToOutstream:
-- ##### Syntax: `redirectToBuffer(self)`
+- ##### Syntax: `redirectToBuffer()`
 - Sets `stdout` stream to `outStream`
 
 ### restoreStdout:
-- ##### Syntax: `restoreStdout(self)`
+- ##### Syntax: `restoreStdout()`
 - Sets `stdout` back to default
 
 ### writeModule:
-- ##### Syntax: `writeModule(self)`
+- ##### Syntax: `writeModule()`
 - Prints the module declaration statement
 
 ### writeEndmodule:
-- ##### Syntax: `writeEndmodule(self)`
+- ##### Syntax: `writeEndmodule()`
 - Prints the endmodule statement
 
 ### writeHeadingComment:
-- ##### Syntax: `writeHeadingComment(self, comment)`
+- ##### Syntax: `writeHeadingComment(comment)`
 - Prints a comment in the heading format
 
 ### writeComment:
-- ##### Syntax: `writeComment(self, comment)`
+- ##### Syntax: `writeComment(comment)`
 - Prints a comment
