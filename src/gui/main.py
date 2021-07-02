@@ -1,4 +1,4 @@
-import os, eel
+import os, sys, eel
 
 import dialogs
 import utils
@@ -51,7 +51,7 @@ def start():
 
 
 if __name__ == "__main__":
-  # pathToBinary = os.path.dirname(sys.executable) # when building the executable
-  pathToBinary = os.path.dirname(__file__) # when running as a python script
+  pathToBinary = os.path.dirname(sys.executable) # when building the executable
+  # pathToBinary = os.path.join(os.path.dirname(__file__), "..") # when running as a python script
 
   start()

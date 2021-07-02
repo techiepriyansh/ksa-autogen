@@ -15,23 +15,27 @@ goto :eof
 :buildcli
 call :cleancli
 echo building cli...
-pyinstaller --noconfirm --onefile --console --name trag --distpath dist\cli  main.py
-@echo d | xcopy /s /q config dist\cli\config
-@echo d | xcopy /s /q static dist\cli\static
-@echo f | xcopy /q "docs\CLI_USAGE.md" "dist\cli\README.md"
+pyinstaller --noconfirm --onefile --console --name trag --distpath dist\cli src\cli\main.py
+echo d | xcopy /s /q src\config dist\cli\config >nul 2>&1
+echo d | xcopy /s /q src\static dist\cli\static >nul 2>&1
+echo f | xcopy /q "docs\CLI_USAGE.md" "dist\cli\README.md" >nul 2>&1
 call :postbuild
 goto :eof
 
 :buildgui
 call :cleangui
 echo building gui...
-rem yet to implement
+cd src\gui
+python -m eel main.py views --noconfirm --onefile --console --name trag --distpath ..\..\dist\gui
 call :postbuild
+cd ..\..
+echo d | xcopy /s /q src\config dist\gui\config >nul 2>&1
+echo d | xcopy /s /q src\static dist\gui\static >nul 2>&1
 goto :eof
 
 :postbuild
 del /q *.spec
-rmdir /s /q __pycache__
+rmdir /s /q __pycache__ >nul 2>&1
 rmdir /s /q build
 goto :eof
 
