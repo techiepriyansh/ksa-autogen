@@ -1,4 +1,4 @@
-def bka_algo(k, merge):
+def BrentKung_algo(k, merge):
   for i in range(1, k+1):
     for j in range(2**i-1, 2**k, 2**i):
       merge(j, j+1-2**(i-1), j+1-2**i)

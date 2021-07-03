@@ -1,4 +1,4 @@
-def hca_algo(k, merge):
+def HanCarlson_algo(k, merge):
   for i in range(1, 2**k, 2):
     merge(i, i, i-1)
 
